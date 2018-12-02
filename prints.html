@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--Let browser know website is optimized for mobile-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+  <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+	<title>Printed collections</title>
+</head>
+</head>
+<body>
+	<div class="container-fluid">
+		<nav style="height: 250px; background-color: lightblue;">
+    <div class="row">
+
+      <div class="col l4 s4">
+
+        <a href="index.html"style="margin: 20px 20px;"> <img src="imgs/homeButton.jpg" style="height: 70px; margin: 20px 20px;"></a>
+      </div>
+      <div class="col l4 s12">
+        <h1 class="center">Creative Inspirations</h1>
+        <h4 class="center">PRESENTS</h4>
+        <h3 class="center">PRINT PRODUCTS</h3>
+      </div>
+      <div class="col l4 s4">
+        <!-- Promo Content 3 goes here -->
+      </div>
+
+    </div>
+   
+ </nav>
+</div>
+ <div class="row">
+ 	<div id="here">
+ 	</div>
+ </div>
+
+<div class="container-fluid" style="background-image: url(imgs/tomb.png); background-size: 100%; background-repeat: no-repeat; padding: 10px 10px">
+ <div class="container" style="box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.32); border-radius: 20px; background-color: rgba(255, 255,255, .5);">
+
+  	<div class="row">
+        <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4 id="demo"></h4>
+      
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+      <div class="col xl3 m12 s12">
+        <div class="card">
+        	<div class="card-image">
+          		<img src="imgs/AbbaFather.jpg" style="height: 400px;">
+         			<a class="btn-floating halfway-fab waves-effect waves-light red btn modal-trigger" href="#modal1" style="float: right;"><i class="material-icons">add</i></a>
+       		</div>
+        		<div class="card-content">
+          		<h3 class="center"> Abba Father </h3><br><br>
+        		</div>
+      	</div>
+      </div>
+        		<div class="col xl3 m12 s12">
+        <div class="card">
+        	<div class="card-image">
+          		<img src="imgs/Compassion.jpg" style="height: 400px;">
+         			<a class="btn-floating halfway-fab waves-effect waves-light red btn modal-trigger" href="#modal1" style="float: right;"><i class="material-icons">add</i></a>
+       		</div>
+        		<div class="card-content">
+          		<h3 class="center"> Compassion </h3> <br> <br>
+        		</div>
+      	</div>
+      </div>
+        		<div class="col xl3 m12 s12">
+        <div class="card">
+        	<div class="card-image">
+          		<img src="imgs/Inspiration.jpg" style="height: 400px;">
+         			<a class="btn-floating halfway-fab waves-effect waves-light red btn modal-trigger" href="#modal1" style="float: right;"><i class="material-icons">add</i></a>
+       		</div>
+        		<div class="card-content">
+          		<h3 class="center"> Inspiration </h3><br><br>
+        		</div>
+      	</div>
+      </div>
+              		<div class="col xl3 m12 s12">
+        <div class="card">
+        	<div class="card-image">
+          		<img src="imgs/King.jpg" style="height: 400px;">
+         			<a class="btn-floating halfway-fab waves-effect waves-light red btn modal-trigger" href="#modal1" style="float: right;"><i class="material-icons">add</i></a>
+       		</div>
+        		<div class="card-content">
+          		<h3 class="center"> King </h3><br><br>
+        		</div>
+      	</div>
+      </div>
+   	</div>
+</div>
+<div class="row">
+	</div>
+</div>
+<div class="row" id="there">
+
+	</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.js"></script>
+
+<script>
+	$(document).ready(function(){
+		M.AutoInit();
+	 console.log("ready!");
+	 console.log(products[3].fiveSeven);
+	 $("#demo").append(products[0].name);
+        paypal.Button.render({
+
+            env: 'sandbox', // sandbox | production
+
+            // PayPal Client IDs - replace with your own
+            // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+            client: {
+                sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+                production: '<insert production client id>'
+            },
+
+            // Show the buyer a 'Pay Now' button in the checkout flow
+            commit: true,
+
+            // payment() is called when the button is clicked
+            payment: function(data, actions) {
+
+                // Make a call to the REST api to create the payment
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: '0.01', currency: 'USD' }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            // onAuthorize() is called when the buyer approves the payment
+            onAuthorize: function(data, actions) {
+
+                // Make a call to the REST api to execute the payment
+                return actions.payment.execute().then(function() {
+                    window.alert('Payment Complete!');
+                });
+            }
+
+        }, '#paypal-button-container');
+
+    </script>
+
+</body>
+</html>
